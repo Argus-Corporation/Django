@@ -65,7 +65,6 @@ public class DjangoBody {
 					params.add(DjangoValue.valueOf(p, body, ast));
 				}
 				
-				System.out.println(newInstance);
 				ast.addValue(newInstance.getNodeId(), params);
 				nodes.add(newInstance);
 				

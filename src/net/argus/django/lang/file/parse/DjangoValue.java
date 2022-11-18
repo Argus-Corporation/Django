@@ -13,7 +13,7 @@ import net.argus.django.lang.operator.Operator;
 import net.argus.django.lang.operator.Plus;
 import net.argus.django.lang.operator.Superior;
 import net.argus.django.lang.operator.SuperiorOrEqual;
-import net.argus.django.lang.val.OpperatingValue;
+import net.argus.django.lang.val.OperatingValue;
 import net.argus.django.lang.val.Value;
 import net.argus.util.StringManager;
 
@@ -30,10 +30,17 @@ public class DjangoValue {
 			new DjangoOperator("<", new Inferior()),
 			new DjangoOperator(">=", new SuperiorOrEqual()),
 			new DjangoOperator("<=", new InferiorOrEqual())
-			};
+		};
 	
 	public static Value valueOf(String str, ASTBody parentBody, AST ast) {
-		boolean priority = false;
+	/*	ScriptEngineManager manager = new ScriptEngineManager();
+		ScriptEngine engine = manager.getEngineByName("js");
+		Object result = engine.eval("4*5");
+		*/
+		return new OperatingValue(str);
+		
+		
+		/*boolean priority = false;
 		
 		if(str.startsWith("("))
 			priority = true;
@@ -63,7 +70,7 @@ public class DjangoValue {
 		
 		return new OpperatingValue(beforeValue, afterValue, OPERATOR[index].getOperator());
 		
-		
+		*/
 	}
 	
 	public static boolean contains(String c, DjangoOperator[] array) {

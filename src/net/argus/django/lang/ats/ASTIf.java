@@ -1,6 +1,7 @@
 package net.argus.django.lang.ats;
 
 import net.argus.django.lang.RuntimeMemory;
+import net.argus.django.lang.val.ReturnValue;
 import net.argus.django.lang.val.Value;
 
 public class ASTIf extends ASTNode {
@@ -23,11 +24,11 @@ public class ASTIf extends ASTNode {
 	}
 
 	@Override
-	public Value exec(RuntimeMemory runtime) {
-		if(condition.isTrue())
-			ifBody.exec(runtime);
+	public ReturnValue exec(RuntimeMemory runtime) {
+		if(condition.isTrue(runtime.getVariableRegister()))
+			return ifBody.exec(runtime);
 		else if(elseBody != null)
-			elseBody.exec(runtime);
+			return elseBody.exec(runtime);
 		
 		return null;
 	}

@@ -23,8 +23,11 @@ public class DjangoFunc {
 		for(Variable v : ast.getRuntime().getVariableRegister().getVariables())
 			register.addVariable(v);
 		
-		for(String str : parameters.split(","))
-			register.addVariable(new Variable(str, null));
+		for(String str : parameters.split(",")) {
+			if(!str.isEmpty())
+				register.addVariable(new Variable(str, null));
+			
+		}
 
 		return new ASTFunction(name, DjangoBody.valueOf(strs, register, ast));
 	}

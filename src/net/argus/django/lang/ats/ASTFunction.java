@@ -1,6 +1,7 @@
 package net.argus.django.lang.ats;
 
 import net.argus.django.lang.RuntimeMemory;
+import net.argus.django.lang.val.ReturnValue;
 import net.argus.django.lang.val.Value;
 import net.argus.django.lang.val.Variable;
 
@@ -22,8 +23,9 @@ public class ASTFunction extends ASTNode {
 	}
 
 	@Override
-	public Value exec(RuntimeMemory runtime) {
+	public ReturnValue exec(RuntimeMemory runtime) {
 		Value[] values = runtime.getValues(getNodeId());
+		
 		if(values != null)
 			for(int i = 0; i < values.length; i++) {
 				Variable var = body.getVariable(i);

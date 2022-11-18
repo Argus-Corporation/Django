@@ -13,7 +13,7 @@ public class Return {
 		strs.remove(0); // remove return
 		
 		Value val = DjangoValue.valueOf(strs.get(0), parentBody, ast);
-		System.out.println(val);
+
 		ASTReturn ret = new ASTReturn();
 
 		ast.addValue(ret.getNodeId(), val);

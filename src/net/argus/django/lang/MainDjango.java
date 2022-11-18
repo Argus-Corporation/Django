@@ -9,9 +9,10 @@ public class MainDjango {
 
 	public static void main(String[] args) {
 		Debug.setEnable(false);
-		DjangoFile f = new DjangoFile("D:\\Django\\Documents\\Java\\Django\\test.dj");
+		DjangoFile f = new DjangoFile("C:\\Users\\malas\\Documents\\Perso\\Java\\Django\\test.dj");
 		AST ast = DjangoParser.parse(f.toList());
-		System.out.println(ast.getModule());
+
+		//System.out.println(ast.getModule());
 		ast.addNode(ast.getFunction("main"));
 		ast.exec();
 		

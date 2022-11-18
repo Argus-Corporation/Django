@@ -1,6 +1,7 @@
 package net.argus.django.lang.ats;
 
 import net.argus.django.lang.RuntimeMemory;
+import net.argus.django.lang.val.ReturnValue;
 import net.argus.django.lang.val.Value;
 
 public class ASTReturn extends ASTNode {
@@ -16,9 +17,12 @@ public class ASTReturn extends ASTNode {
 	}
 
 	@Override
-	public Value exec(RuntimeMemory runtime) {
-		System.out.println(runtime.getValues(getNodeId())[0]);
-		return runtime.getValues(getNodeId())[0];
+	public ReturnValue exec(RuntimeMemory runtime) {
+		Value val = runtime.getValues(getNodeId())[0];
+		if(val == null)
+			return ReturnValue.NULL;
+		
+		return new ReturnValue((Value) val.getValue(runtime.getVariableRegister()), true);
 	}
 	
 	@Override

@@ -12,4 +12,9 @@ public class DjangoException extends RuntimeException {
 	public DjangoException(String message) {
 		super(message);
 	}
+	
+	public DjangoException(String message, Throwable throwable) {
+		super(message, throwable);
+	}
+	
 }

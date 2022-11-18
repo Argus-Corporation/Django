@@ -3,7 +3,7 @@ package net.argus.django.lang.ats;
 import java.util.List;
 
 import net.argus.django.lang.RuntimeMemory;
-import net.argus.django.lang.val.Value;
+import net.argus.django.lang.val.ReturnValue;
 import net.argus.django.lang.val.Variable;
 import net.argus.django.lang.val.VariableRegister;
 import net.argus.util.ArrayManager;
@@ -55,12 +55,20 @@ public class ASTBody extends ASTNode {
 	}
 
 	@Override
-	public Value exec(RuntimeMemory runtime) {
-		for(ASTNode node : nodes) {
-			Value v = node.exec(runtime);
-			if(node instanceof ASTReturn)
-				return v;
+	public ReturnValue exec(RuntimeMemory runtime) {
+		for(Variable v : register.getVariables()) {
+			runtime.addLocalVariable(getNodeId(), v);
 		}
+
+		for(ASTNode node : nodes) {
+			ReturnValue v = node.exec(runtime);
+			if(v.isReturnValue()) {
+				runtime.clearLocalVariable(getNodeId());
+				return v;
+			}
+		}
+		
+		runtime.clearLocalVariable(getNodeId());
 		return null;
 	}
 	

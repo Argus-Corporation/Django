@@ -2,6 +2,8 @@ package net.argus.django.lang.val;
 
 public class Value {
 
+	public static final Value NULL = new Value(null);
+	
 	protected Object value;
 	
 	public Value(Object value) {
@@ -12,12 +14,20 @@ public class Value {
 	 * return value
 	 * @return
 	 */
-	public Object getValue() {
+	public Object getValue(VariableRegister variableRegister) {
 		return value;
 	}
 	
-	public boolean isTrue() {
-		Object value = getValue();
+	/**
+	 * return value
+	 * @return
+	 */
+	public Object getValue() {
+		return getValue(null);
+	}
+	
+	public boolean isTrue(VariableRegister variableRegister) {
+		Object value = getValue(variableRegister);
 		if(value instanceof Integer)
 			return (int) value == 1;
 		else if(value instanceof Boolean)

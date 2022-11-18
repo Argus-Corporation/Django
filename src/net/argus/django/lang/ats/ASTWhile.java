@@ -1,6 +1,7 @@
 package net.argus.django.lang.ats;
 
 import net.argus.django.lang.RuntimeMemory;
+import net.argus.django.lang.val.ReturnValue;
 import net.argus.django.lang.val.Value;
 
 public class ASTWhile extends ASTNode {
@@ -22,9 +23,12 @@ public class ASTWhile extends ASTNode {
 	}
 
 	@Override
-	public Value exec(RuntimeMemory runtime) {
-		while(condition.isTrue())
-			body.exec(runtime);
+	public ReturnValue exec(RuntimeMemory runtime) {
+		while(condition.isTrue(runtime.getVariableRegister())) {
+			ReturnValue ret = body.exec(runtime);
+			if(ret != null)
+				return ret;
+		}
 		
 		return null;
 	}

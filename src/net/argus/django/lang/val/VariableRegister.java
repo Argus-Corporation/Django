@@ -22,6 +22,15 @@ public class VariableRegister {
 		return null;
 	}
 	
+	public void remove(String name) {
+		remove(variables.get(index(name)));
+	}
+	
+	public void remove(Variable variable) {
+		variables.remove(variable);
+	}
+	
+	
 	public int index(String name) {
 		return variables.indexOf(getVariable(name));
 	}

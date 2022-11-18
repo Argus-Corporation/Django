@@ -57,6 +57,10 @@ public class AST {
 		return runtime.getVariable(name);
 	}
 	
+	public RuntimeMemory getVariables() {
+		return runtime;
+	}
+	
 	public RuntimeMemory getRuntime() {
 		return runtime;
 	}
