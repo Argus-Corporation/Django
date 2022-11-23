@@ -7,7 +7,7 @@ public class ReturnValue extends Value {
 	private boolean retVal;
 
 	public ReturnValue(Value val, boolean retVal) {
-		super(val.getValue());
+		super(val!=null?val.getValue():null);
 		this.retVal = retVal;
 	}
 	

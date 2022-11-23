@@ -1,11 +1,11 @@
 package net.argus.django.lang.val;
 
+import javax.script.Bindings;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
 import net.argus.django.lang.exception.DjangoException;
-import net.argus.util.StringManager;
 
 public class OperatingValue extends Value {
 	
@@ -22,22 +22,27 @@ public class OperatingValue extends Value {
 	public Object getValue(VariableRegister variableRegister) {
 		String v = value;
 		try {
+			Bindings b = ENGINE.createBindings();
 			if(variableRegister != null)
-				for(Variable var : variableRegister.getVariables()) {
-					
-					if(var.getName() == null)
-						continue;
-					
-					int index = v.indexOf(var.getName());
-					if(index < 0)
-						continue;
-					
-					v = StringManager.remplace(v, var.getName(), var.getValue().toString());
-				}
+				for(Variable var : variableRegister.getVariables())
+					b.put(var.getName(), var.getValue());
+			
+			
+			/*
+			for(String str : v.split("[()]|[*+-\\/=><]")) {
+				if(str.isEmpty())
+					continue;
+				System.out.println(str);
+			}*/
+			
 			return new ReturnValue(new Value(ENGINE.eval(v)), true);
 		} catch (ScriptException e) {
-			throw new DjangoException(v, e);
+			throw new DjangoException(value, e);
 		}
+	}
+	
+	public Object getExplicitValue() {
+		return value;
 	}
 	
 	@Override

@@ -9,13 +9,14 @@ public class MainDjango {
 
 	public static void main(String[] args) {
 		Debug.setEnable(false);
-		DjangoFile f = new DjangoFile("C:\\Users\\malas\\Documents\\Perso\\Java\\Django\\test.dj");
+		DjangoFile f = new DjangoFile("D:\\Django\\Documents\\Java\\Django\\test.dj");
 		AST ast = DjangoParser.parse(f.toList());
 
 		//System.out.println(ast.getModule());
 		ast.addNode(ast.getFunction("main"));
 		ast.exec();
 		
+		//test("(3*5+test(test(2)-1)-3*(52))");
 		/*AST a = new AST();
 		
 		
@@ -29,7 +30,7 @@ public class MainDjango {
 		ASTBody elseBody = new ASTBody(2, ase);
 		
 		ASTIf i = new ASTIf(1, ci, ifBody, elseBody);
-		
+			
 		
 		ASTCompare c = new ASTCompare(2, new NotEqual());
 		
@@ -56,10 +57,46 @@ public class MainDjango {
 		*/
 	}
 	
+	/*
+	public static Value test(String str) {
+		return test(toList(str.toCharArray()));
+	}
+	
+	public static void rem(List<Character> chars, int i) {
+		for(int k = 0; k < i; k++)
+			chars.remove(0);
+	}
+	
+	public static Value test(List<Character> spl) {
+		for(int i = 0; i < spl.size(); i++) {	
+			char car = spl.get(i);
+			
+			if(car == ')') {
+				spl.remove(i);
+				return null;
+			}
+			
+			if(car == '(' && i > 0 && Character.isAlphabetic(spl.get(i-1))) {
+				String funcName = "";
+				int j = i-1;
+				while(Character.isAlphabetic(spl.get(j))) {
+					funcName = spl.get(j) + funcName;
+					j--;
+				}
+				
+				rem(spl, i);
+				int size = spl.size();
+				Value val = test(spl);
+				rem(spl, size - spl.size());
+			}
+			/*if(Character.isAlphabetic(before.charAt(before.length()-1))) {
+				String[] strs = before.split("[+\\-*\\/=><]");
+				String funcName = strs[strs.length-1];
+				System.out.println(spl);
+			}
+		}
+		
+		return null;
+	}
+	*/
 }
-
-
-//a = 1 + ((b - 6) * 2)
-
-//a * b
-//a + b

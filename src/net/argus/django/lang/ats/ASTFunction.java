@@ -33,7 +33,7 @@ public class ASTFunction extends ASTNode {
 					var.setValue(values[i]);
 			}
 		
-		return body.exec(runtime);
+		return new ReturnValue(body.exec(runtime), false);
 	}
 	
 	public ASTBody getBody() {

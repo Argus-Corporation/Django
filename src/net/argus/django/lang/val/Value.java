@@ -4,7 +4,7 @@ public class Value {
 
 	public static final Value NULL = new Value(null);
 	
-	protected Object value;
+	public Object value;
 	
 	public Value(Object value) {
 		this.value = value;

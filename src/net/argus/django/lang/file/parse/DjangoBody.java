@@ -50,33 +50,41 @@ public class DjangoBody {
 				continue;
 			}
 			
-			if(ast.getFunction(str) != null) {
-				strs.remove(0); // remove name
-				ASTFunction f = ast.getFunction(str);
-				ASTFunction newInstance = new ASTFunction(f.getName(), f.getBody());
-
-				String param = strs.get(i);
-				String[] paramsStr = param.substring(1, param.length()-1).split(",");
-
-				List<Value> params = new ArrayList<Value>();
-				for(String p : paramsStr) {
-					if(p.isEmpty())
-						continue;
-					params.add(DjangoValue.valueOf(p, body, ast));
-				}
-				
-				ast.addValue(newInstance.getNodeId(), params);
-				nodes.add(newInstance);
-				
-				strs.remove(0); // remove param
-				
-			}
+			ASTNode n = null;
+			if((n = func(strs, body, str, ast, true)) != null)
+				nodes.add(n);
 			
 		}
 		
 		strs.remove(0); // remove }
 		body.setNodes(nodes);
 		return body;
+	}
+	
+	public static ASTNode func(List<String> strs, ASTBody parentBody, String name, AST ast, boolean addNode) {
+		ASTNode node = null;
+		if(ast.getFunction(name) != null) {
+			strs.remove(0); // remove name
+			ASTFunction f = ast.getFunction(name);
+			ASTFunction newInstance = new ASTFunction(f.getName(), f.getBody());
+
+			String param = strs.get(0);
+			String[] paramsStr = param.substring(1, param.length()-1).split(",");
+
+			List<Value> params = new ArrayList<Value>();
+			for(String p : paramsStr) {
+				if(p.isEmpty())
+					continue;
+				params.add(DjangoValue.valueOf(p, parentBody, ast));
+			}
+			
+			if(addNode)
+				ast.addValue(newInstance.getNodeId(), params);
+			node = newInstance;
+			
+			strs.remove(0); // remove param
+		}
+		return node;
 	}
 
 }
