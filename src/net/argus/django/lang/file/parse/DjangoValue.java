@@ -5,7 +5,6 @@ import java.util.List;
 
 import net.argus.django.lang.ats.AST;
 import net.argus.django.lang.ats.ASTBody;
-import net.argus.django.lang.ats.ASTNode;
 import net.argus.django.lang.operator.Divide;
 import net.argus.django.lang.operator.Equal;
 import net.argus.django.lang.operator.Inferior;
@@ -17,10 +16,7 @@ import net.argus.django.lang.operator.Operator;
 import net.argus.django.lang.operator.Plus;
 import net.argus.django.lang.operator.Superior;
 import net.argus.django.lang.operator.SuperiorOrEqual;
-import net.argus.django.lang.val.FuncVal;
-import net.argus.django.lang.val.OperatingValue;
 import net.argus.django.lang.val.Value;
-import net.argus.util.ArrayManager;
 import net.argus.util.StringManager;
 
 public class DjangoValue {
@@ -39,10 +35,12 @@ public class DjangoValue {
 		};
 	
 	public static Value valueOf(String str, ASTBody parentBody, AST ast) {
+		return new Value(null);
 	/*	ScriptEngineManager manager = new ScriptEngineManager();
 		ScriptEngine engine = manager.getEngineByName("js");
 		Object result = engine.eval("4*5");
 		*/
+		/*
 		List<FuncVal> stack = new ArrayList<FuncVal>();
 		List<Character> spl = toList(str.toCharArray());
 		
@@ -66,13 +64,13 @@ public class DjangoValue {
 			/*int index = str.indexOf(name);
 			int endIndex = getIndex(toList(v.toCharArray()), index + name.length());
 			System.out.println(StringManager.remplace(v, index, endIndex - index, fval.getValue().getValue(variableRegister).toString()));*/
-			
+		/*	
 			ASTNode node = DjangoBody.func(ArrayManager.toList(new String[] {name, "(" + fval.getValue().getExplicitValue() + ")"}), parentBody, name, ast, false);
 			ast.addValue(, values);
 		}
 		return new OperatingValue(str);
 		
-		
+		*/
 		/*boolean priority = false;
 		
 		if(str.startsWith("("))
